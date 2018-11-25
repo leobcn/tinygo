@@ -19,6 +19,7 @@ import (
 // results.
 type Program struct {
 	Program              *ssa.Program
+	LoaderProgram        *loader.Program
 	mainPkg              *ssa.Package
 	Functions            []*Function
 	functionMap          map[*ssa.Function]*Function
@@ -179,6 +180,7 @@ func NewProgram(lprogram *loader.Program, mainPath string) *Program {
 
 	p := &Program{
 		Program:              program,
+		LoaderProgram:        lprogram,
 		mainPkg:              mainPkg,
 		functionMap:          make(map[*ssa.Function]*Function),
 		globalMap:            make(map[*ssa.Global]*Global),
