@@ -164,6 +164,9 @@ func (p *Program) Parse() error {
 	for _, pkg := range p.Sorted() {
 		err := pkg.importRecursively()
 		if err != nil {
+			if err, ok := err.(*ImportCycleError); ok {
+				err.Packages = append([]string{pkg.ImportPath}, err.Packages...)
+			}
 			return err
 		}
 	}
